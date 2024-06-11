@@ -81,7 +81,11 @@ const App = () => {
       {blendedImage && (
         <div className="mb-5">
           <h2 className="text-xl font-bold mb-2">Blended Image</h2>
-          <img src={blendedImage} alt="Blended" className="m-2 max-w-xs" />
+          <img
+            src={blendedImage}
+            alt="Blended"
+            className="m-2 max-w-xs  mx-auto"
+          />
           <div className="form-control w-full max-w-xs mx-auto">
             <label className="label">
               <span className="label-text">Select Blend Mode</span>
