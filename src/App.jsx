@@ -56,6 +56,7 @@ const App = () => {
             <option value='{"width":1080,"height":1350}'>1080x1350</option>
             <option value='{"width":720,"height":720}'>720x720</option>
             <option value='{"width":1280,"height":720}'>1280x720</option>
+            <option value='{"width":1080,"height":1920}'>1080x1920</option>
             {/* Add more sizes here */}
           </select>
         </div>
@@ -84,7 +85,7 @@ const App = () => {
           <img
             src={blendedImage}
             alt="Blended"
-            className="m-2 max-w-xs  mx-auto"
+            className="m-2 max-w-xs mx-auto"
           />
           <div className="form-control w-full max-w-xs mx-auto">
             <label className="label">

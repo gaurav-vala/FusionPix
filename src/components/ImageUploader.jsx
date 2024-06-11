@@ -10,10 +10,7 @@ const ImageUploader = ({ onImageUpload, cropSize }) => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    if (rejectedFiles.length > 0) {
-      alert("Only image files are allowed");
-    }
+  const onDrop = useCallback((acceptedFiles) => {
     const reader = new FileReader();
     reader.onload = () => {
       setImageSrc(reader.result);
@@ -26,16 +23,12 @@ const ImageUploader = ({ onImageUpload, cropSize }) => {
   }, []);
 
   const handleCrop = async () => {
-    console.log("handle crop");
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
     onImageUpload(croppedImage);
     setImageSrc(null);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: "image/*", // Only accept image files
-  });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <div>
