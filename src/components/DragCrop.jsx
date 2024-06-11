@@ -1,8 +1,7 @@
-// src/App.jsx
 import React, { useState, useRef, useEffect } from "react";
-import ImageUploader from "./components/ImageUploader";
+import ImageUploader from "./ImageUploader";
 
-const App = () => {
+const DragCrop = () => {
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
   const [cropSize, setCropSize] = useState({ width: 1080, height: 1080 });
@@ -59,67 +58,61 @@ const App = () => {
             {/* Add more sizes here */}
           </select>
         </div>
+        <div className="form-control w-full max-w-xs mx-auto">
+          <label className="label">
+            <span className="label-text">Select Blend Mode</span>
+          </label>
+          <select
+            className="select select-bordered"
+            value={blendMode}
+            onChange={(e) => setBlendMode(e.target.value)}
+          >
+            <option value="multiply">Multiply</option>
+            <option value="screen">Screen</option>
+            <option value="overlay">Overlay</option>
+            <option value="darken">Darken</option>
+            <option value="lighten">Lighten</option>
+            <option value="color-dodge">Color Dodge</option>
+            <option value="color-burn">Color Burn</option>
+            <option value="hard-light">Hard Light</option>
+            <option value="soft-light">Soft Light</option>
+            <option value="difference">Difference</option>
+            <option value="exclusion">Exclusion</option>
+            <option value="hue">Hue</option>
+            <option value="saturation">Saturation</option>
+            <option value="color">Color</option>
+            <option value="luminosity">Luminosity</option>
+          </select>
+        </div>
       </div>
 
       <div className="mb-5">
         <ImageUploader onImageUpload={setImage1} cropSize={cropSize} />
-        {image1 && (
-          <img src={image1} alt="First" className="m-2 max-w-xs mx-auto" />
-        )}
+        {image1 && <img src={image1} alt="First" className="m-2 max-w-xs" />}
       </div>
       <div className="mb-5">
         <ImageUploader onImageUpload={setImage2} cropSize={cropSize} />
-        {image2 && (
-          <img src={image2} alt="Second" className="m-2 max-w-xs mx-auto" />
-        )}
+        {image2 && <img src={image2} alt="Second" className="m-2 max-w-xs" />}
       </div>
       {image1 && image2 && (
         <div className="mb-5">
           <canvas ref={canvasRef} className="border-2 border-black hidden" />
         </div>
       )}
-      {blendedImage && (
-        <div className="mb-5">
-          <h2 className="text-xl font-bold mb-2">Blended Image</h2>
-          <img src={blendedImage} alt="Blended" className="m-2 max-w-xs" />
-          <div className="form-control w-full max-w-xs mx-auto">
-            <label className="label">
-              <span className="label-text">Select Blend Mode</span>
-            </label>
-            <select
-              className="select select-bordered"
-              value={blendMode}
-              onChange={(e) => setBlendMode(e.target.value)}
-            >
-              <option value="source-over">Source Over</option>
-              <option value="multiply">Multiply</option>
-              <option value="screen">Screen</option>
-              <option value="overlay">Overlay</option>
-              <option value="darken">Darken</option>
-              <option value="lighten">Lighten</option>
-              <option value="color-dodge">Color Dodge</option>
-              <option value="color-burn">Color Burn</option>
-              <option value="hard-light">Hard Light</option>
-              <option value="soft-light">Soft Light</option>
-              <option value="difference">Difference</option>
-              <option value="exclusion">Exclusion</option>
-              <option value="hue">Hue</option>
-              <option value="saturation">Saturation</option>
-              <option value="color">Color</option>
-              <option value="luminosity">Luminosity</option>
-            </select>
-          </div>
-          <a
-            href={blendedImage}
-            download="blended-image.png"
-            className="btn btn-primary mt-2"
-          >
-            Download Blended Image
-          </a>
-        </div>
-      )}
+
+      <div className="mb-5">
+        <h2 className="text-xl font-bold mb-2">Blended Image</h2>
+        <img src={blendedImage} alt="Blended" className="m-2 max-w-xs" />
+        <a
+          href={blendedImage}
+          download="blended-image.png"
+          className="btn btn-primary mt-2"
+        >
+          Download Blended Image
+        </a>
+      </div>
     </div>
   );
 };
 
-export default App;
+export default DragCrop;
