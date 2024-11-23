@@ -40,10 +40,10 @@ const App = () => {
   }, [image1, image2, blendMode, cropSize]);
 
   return (
-    <div className="text-center p-5">
-      <h1 className="text-2xl font-bold mb-5">Image Blend App</h1>
+    <div className="p-5 text-center">
+      <h1 className="mb-5 text-2xl font-bold">Image Blend App</h1>
       <div className="flex flex-wrap m-4">
-        <div className="form-control w-full max-w-xs mx-auto mb-5">
+        <div className="w-full max-w-xs mx-auto mb-5 form-control">
           <label className="label">
             <span className="label-text">Select Crop Size</span>
           </label>
@@ -57,6 +57,7 @@ const App = () => {
             <option value='{"width":720,"height":720}'>720x720</option>
             <option value='{"width":1280,"height":720}'>1280x720</option>
             <option value='{"width":1080,"height":1920}'>1080x1920</option>
+            <option value='{"width":1152,"height":600}'>1152x600</option>
             {/* Add more sizes here */}
           </select>
         </div>
@@ -65,29 +66,29 @@ const App = () => {
       <div className="mb-5">
         <ImageUploader onImageUpload={setImage1} cropSize={cropSize} />
         {image1 && (
-          <img src={image1} alt="First" className="m-2 max-w-xs mx-auto" />
+          <img src={image1} alt="First" className="max-w-xs m-2 mx-auto" />
         )}
       </div>
       <div className="mb-5">
         <ImageUploader onImageUpload={setImage2} cropSize={cropSize} />
         {image2 && (
-          <img src={image2} alt="Second" className="m-2 max-w-xs mx-auto" />
+          <img src={image2} alt="Second" className="max-w-xs m-2 mx-auto" />
         )}
       </div>
       {image1 && image2 && (
         <div className="mb-5">
-          <canvas ref={canvasRef} className="border-2 border-black hidden" />
+          <canvas ref={canvasRef} className="hidden border-2 border-black" />
         </div>
       )}
       {blendedImage && (
         <div className="mb-5">
-          <h2 className="text-xl font-bold mb-2">Blended Image</h2>
+          <h2 className="mb-2 text-xl font-bold">Blended Image</h2>
           <img
             src={blendedImage}
             alt="Blended"
-            className="m-2 max-w-xs mx-auto"
+            className="max-w-xs m-2 mx-auto"
           />
-          <div className="form-control w-full max-w-xs mx-auto">
+          <div className="w-full max-w-xs mx-auto form-control">
             <label className="label">
               <span className="label-text">Select Blend Mode</span>
             </label>
@@ -117,7 +118,7 @@ const App = () => {
           <a
             href={blendedImage}
             download="blended-image.png"
-            className="btn btn-primary mt-2"
+            className="mt-2 btn btn-primary"
           >
             Download Blended Image
           </a>
