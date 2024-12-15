@@ -28,7 +28,13 @@ const ImageUploader = ({ onImageUpload, cropSize, placeholder }) => {
     setImageSrc(null);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      "image/jpeg": [],
+      "image/png": [],
+    },
+  });
 
   return (
     <div className="ImageUploader_Container">
