@@ -35,10 +35,12 @@ const ImageUploader = ({ onImageUpload, cropSize }) => {
       {!imageSrc ? (
         <div
           {...getRootProps()}
-          className="border-2 border-slate-600 rounded-md p-5 text-center cursor-pointer"
+          className="p-3 text-center border rounded-md cursor-pointer md:p-5 border-neutral-200 bg-neutral-100"
         >
           <input {...getInputProps()} />
-          <p>Drag & drop an image here, or click to select one</p>
+          <p className="text-sm md:text-md">
+            Drag & drop an image here, or click to select one
+          </p>
         </div>
       ) : (
         <div className="relative w-full h-64">
@@ -53,7 +55,7 @@ const ImageUploader = ({ onImageUpload, cropSize }) => {
           />
           <button
             onClick={handleCrop}
-            className="btn btn-primary mt-2 relative z-50"
+            className="relative z-50 mt-2 btn btn-primary"
           >
             Crop
           </button>

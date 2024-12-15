@@ -1,3 +1,4 @@
+// src/components/DragCrop.jsx
 import React, { useState, useRef, useEffect } from "react";
 import ImageUploader from "./ImageUploader";
 
@@ -6,16 +7,20 @@ const DragCrop = () => {
   const [image2, setImage2] = useState(null);
   const [cropSize, setCropSize] = useState({ width: 1080, height: 1080 });
   const [blendMode, setBlendMode] = useState("source-over");
+  const [opacity, setOpacity] = useState(1); // State for opacity
   const canvasRef = useRef(null);
   const [blendedImage, setBlendedImage] = useState(null);
 
-  const blendImages = (ctx, img1, img2) => {
+  const blendImages = (ctx, img1, img2, opacity) => {
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.globalCompositeOperation = "source-over";
     ctx.drawImage(img1, 0, 0, cropSize.width, cropSize.height);
+    ctx.globalAlpha = opacity; // Set opacity
     ctx.globalCompositeOperation = blendMode;
     ctx.drawImage(img2, 0, 0, cropSize.width, cropSize.height);
     setBlendedImage(canvasRef.current.toDataURL("image/png"));
+
+    console.log(opacity);
   };
 
   useEffect(() => {
@@ -32,17 +37,17 @@ const DragCrop = () => {
         canvas.width = cropSize.width;
         canvas.height = cropSize.height;
         img2.onload = () => {
-          blendImages(ctx, img1, img2);
+          blendImages(ctx, img1, img2, opacity);
         };
       };
     }
-  }, [image1, image2, blendMode, cropSize]);
+  }, [image1, image2, blendMode, cropSize, opacity]);
 
   return (
-    <div className="text-center p-5">
-      <h1 className="text-2xl font-bold mb-5">Image Blend App</h1>
+    <div className="p-5 text-center">
+      <h1 className="mb-5 text-2xl font-bold">Image Blend App</h1>
       <div className="flex flex-wrap m-4">
-        <div className="form-control w-full max-w-xs mx-auto mb-5">
+        <div className="w-full max-w-xs mx-auto mb-5 form-control">
           <label className="label">
             <span className="label-text">Select Crop Size</span>
           </label>
@@ -58,7 +63,7 @@ const DragCrop = () => {
             {/* Add more sizes here */}
           </select>
         </div>
-        <div className="form-control w-full max-w-xs mx-auto">
+        <div className="w-full max-w-xs mx-auto form-control">
           <label className="label">
             <span className="label-text">Select Blend Mode</span>
           </label>
@@ -67,6 +72,7 @@ const DragCrop = () => {
             value={blendMode}
             onChange={(e) => setBlendMode(e.target.value)}
           >
+            <option value="source-over">Normal</option>
             <option value="multiply">Multiply</option>
             <option value="screen">Screen</option>
             <option value="overlay">Overlay</option>
@@ -88,25 +94,41 @@ const DragCrop = () => {
 
       <div className="mb-5">
         <ImageUploader onImageUpload={setImage1} cropSize={cropSize} />
-        {image1 && <img src={image1} alt="First" className="m-2 max-w-xs" />}
+        {image1 && <img src={image1} alt="First" className="max-w-xs m-2" />}
       </div>
       <div className="mb-5">
         <ImageUploader onImageUpload={setImage2} cropSize={cropSize} />
-        {image2 && <img src={image2} alt="Second" className="m-2 max-w-xs" />}
+        {image2 && <img src={image2} alt="Second" className="max-w-xs m-2" />}
       </div>
       {image1 && image2 && (
         <div className="mb-5">
-          <canvas ref={canvasRef} className="border-2 border-black hidden" />
+          <canvas ref={canvasRef} className="hidden border-2 border-black" />
         </div>
       )}
 
       <div className="mb-5">
-        <h2 className="text-xl font-bold mb-2">Blended Image</h2>
-        <img src={blendedImage} alt="Blended" className="m-2 max-w-xs" />
+        <label htmlFor="opacity" className="text-sm font-medium">
+          Opacity:
+        </label>
+        <input
+          type="range"
+          id="opacity"
+          min="0"
+          max="1"
+          step="0.01"
+          value={opacity}
+          onChange={(e) => setOpacity(parseFloat(e.target.value))}
+          className="w-full"
+        />
+      </div>
+
+      <div className="mb-5">
+        <h2 className="mb-2 text-xl font-bold">Blended Image</h2>
+        <img src={blendedImage} alt="Blended" className="max-w-xs m-2" />
         <a
           href={blendedImage}
           download="blended-image.png"
-          className="btn btn-primary mt-2"
+          className="mt-2 btn btn-primary"
         >
           Download Blended Image
         </a>
