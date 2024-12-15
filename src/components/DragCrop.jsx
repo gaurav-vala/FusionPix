@@ -19,8 +19,6 @@ const DragCrop = () => {
     ctx.globalCompositeOperation = blendMode;
     ctx.drawImage(img2, 0, 0, cropSize.width, cropSize.height);
     setBlendedImage(canvasRef.current.toDataURL("image/png"));
-
-    console.log(opacity);
   };
 
   useEffect(() => {

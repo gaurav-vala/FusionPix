@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./CropImage"; // Utility function to crop the image
 
-const ImageUploader = ({ onImageUpload, cropSize }) => {
+const ImageUploader = ({ onImageUpload, cropSize, placeholder }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -31,16 +31,14 @@ const ImageUploader = ({ onImageUpload, cropSize }) => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div>
+    <div className="ImageUploader_Container">
       {!imageSrc ? (
         <div
           {...getRootProps()}
-          className="p-3 text-center border rounded-md cursor-pointer md:p-5 border-neutral-200 bg-neutral-100"
+          className="p-5 text-center rounded-md cursor-pointer bg-gray-950 border-neutral-200 text-neutral-50"
         >
           <input {...getInputProps()} />
-          <p className="text-sm md:text-md">
-            Drag & drop an image here, or click to select one
-          </p>
+          <p className="text-sm md:text-md">{placeholder}</p>
         </div>
       ) : (
         <div className="relative w-full h-64">

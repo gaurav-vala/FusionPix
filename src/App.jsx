@@ -42,16 +42,16 @@ const App = () => {
   }, [image1, image2, blendMode, cropSize, opacity]); // Added opacity to dependencies
 
   return (
-    <section className="w-full max-w-4xl px-5 py-12 mx-auto">
+    <section className="w-full max-w-4xl px-6 py-8 mx-auto md:py-12">
       <div className="text-center">
-        <h1 className="flex items-center justify-center gap-2 mb-5 text-2xl font-bold">
+        <h1 className="flex items-center justify-center gap-2 mb-5 text-2xl font-bold text-neutral-200">
           <Eclipse />
-          <span>PixFusion</span>
+          <span>FusionPix</span>
         </h1>
         <div className="flex flex-wrap md:m-4">
           <div className="w-full mx-auto mb-5 max-w-96 form-control">
             <label className="justify-center label">
-              <span className="text-xl text-center label-text">
+              <span className="text-lg font-semibold tracking-tight text-center md:text-xl label-text">
                 Select Crop Size
               </span>
             </label>
@@ -72,15 +72,27 @@ const App = () => {
         </div>
 
         <div className="mb-5">
-          <ImageUploader onImageUpload={setImage1} cropSize={cropSize} />
+          <ImageUploader
+            onImageUpload={setImage1}
+            cropSize={cropSize}
+            placeholder="Click to select one - IMAGE"
+          />
           {image1 && (
-            <img src={image1} alt="First" className="max-w-xs m-2 mx-auto" />
+            <img src={image1} alt="First" className="max-w-xs m-2 mx-auto " />
           )}
         </div>
         <div className="mb-5">
-          <ImageUploader onImageUpload={setImage2} cropSize={cropSize} />
+          <ImageUploader
+            onImageUpload={setImage2}
+            cropSize={cropSize}
+            placeholder="Click to select one - TEXTURE"
+          />
           {image2 && (
-            <img src={image2} alt="Second" className="max-w-xs m-2 mx-auto" />
+            <img
+              src={image2}
+              alt="Second"
+              className="max-w-xs m-2 mx-auto rounded"
+            />
           )}
         </div>
 
@@ -96,7 +108,7 @@ const App = () => {
             <img
               src={blendedImage}
               alt="Blended"
-              className="max-w-xs m-2 mx-auto"
+              className="max-w-xs m-2 mx-auto rounded"
             />
 
             {/* Blend Mode Selection */}
@@ -137,7 +149,7 @@ const App = () => {
                 type="range"
                 min="0"
                 max="1"
-                step="0.01"
+                step="0.10"
                 value={opacity}
                 onChange={(e) => setOpacity(parseFloat(e.target.value))}
                 className="range"
