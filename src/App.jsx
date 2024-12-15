@@ -104,7 +104,7 @@ const App = () => {
 
         {blendedImage && (
           <div className="mb-5">
-            <h2 className="mb-2 text-xl font-bold">Blended Image</h2>
+            <h2 className="mb-2 text-xl font-bold">Blended Images</h2>
             <img
               src={blendedImage}
               alt="Blended"
